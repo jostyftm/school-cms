@@ -1,0 +1,37 @@
+<?php
+
+namespace App;
+
+//Class which implements Illuminate\Contracts\Auth\Authenticatable
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+//Trait for sending notifications in laravel
+use Illuminate\Notifications\Notifiable;
+
+//Notification for Institution
+use App\Notifications\InstitutionResetPasswordNotification;
+
+class Institution extends Authenticatable
+{	
+	// This trait has notify() method defined
+  	use Notifiable;
+
+	// table
+	protected $table = 'institution';
+	
+    //Mass assignable attributes
+  	protected $fillable = [
+      'name', 'dane_code', 'picture', 'email', 'password',
+  	];
+
+  	//hidden attributes
+	protected $hidden = [
+		'password', 'remember_token',
+	];
+
+	//Send password reset notification
+  	public function sendPasswordResetNotification($token)
+  	{
+    	$this->notify(new InstitutionResetPasswordNotification($token));
+  	}
+}
