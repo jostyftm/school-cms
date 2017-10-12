@@ -28,13 +28,13 @@ Route::group(['middleware' => 'institution_guest'], function() {
 });
 
 //Only logged in sellers can access or send requests to these pages
-Route::group(['middleware' => 'institution_auth'], function(){
+Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], function(){
 
 	Route::post('institution_logout', 'InstitutionAuth\LoginController@logout');
+	Route::get('/dashboard', 'InstitutionController@dashboard')->name('institution.dashboard');
+	Route::get('/home', 'InstitutionController@dashboard')->name('institution.dashboard');
 
-	Route::get('/institution_home', function(){
-	  return view('institution.home');
-	});
+	Route::resource('headquarter', 'HeadquarterController');
 });
 
 //Password reset routes
