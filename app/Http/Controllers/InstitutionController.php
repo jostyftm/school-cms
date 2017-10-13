@@ -91,6 +91,7 @@ class InstitutionController extends Controller
      */
     public function dashboard()
     {
-        return View('institution.dashboard.index');
+        return View('institution.dashboard.index')
+               ->with('item', ['item_sidebar'=>'home']);
     }
 }

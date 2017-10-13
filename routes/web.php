@@ -35,6 +35,8 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 	Route::get('/home', 'InstitutionController@dashboard')->name('institution.dashboard');
 
 	Route::resource('headquarter', 'HeadquarterController');
+	Route::resource('employee', 'EmployeeController');
+	Route::resource('role', 'RoleController');
 });
 
 //Password reset routes

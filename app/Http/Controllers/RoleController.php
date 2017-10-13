@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HeadquarterController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,8 @@ class HeadquarterController extends Controller
      */
     public function index()
     {
-        return View('institution.partials.headquarter.index')
-                ->with('item', ['item_sidebar'=>'headquarter']);
+        return View('institution.partials.role.index')
+                ->with('item', ['item_sidebar'=>'roles']);
     }
 
     /**
@@ -24,8 +24,8 @@ class HeadquarterController extends Controller
      */
     public function create()
     {
-        return View('institution.partials.headquarter.create')
-                ->with('item', ['item_sidebar'=>'headquarter']);
+        return View('institution.partials.role.create')
+                ->with('item', ['item_sidebar'=>'roles']);
     }
 
     /**
@@ -58,7 +58,8 @@ class HeadquarterController extends Controller
      */
     public function edit($id)
     {
-        //
+        return View('institution.partials.role.edit')
+                ->with('item', ['item_sidebar'=>'roles']);
     }
 
     /**
