@@ -37,6 +37,12 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 	Route::resource('headquarter', 'HeadquarterController');
 	Route::resource('employee', 'EmployeeController');
 	Route::resource('role', 'RoleController');
+	Route::resource('group', 'GroupController');
+	Route::resource('file', 'FileController');
+	Route::resource('post', 'PostController');
+	Route::resource('page', 'PageController');
+	Route::resource('category', 'CategoryController');
+	Route::resource('setting', 'SettingController');
 });
 
 //Password reset routes

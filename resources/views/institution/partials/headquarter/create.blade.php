@@ -1,19 +1,24 @@
 @extends('institution.dashboard.index')
 
 @section('breadcrum')
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-  <li class="breadcrumb-item"><a href="#">Sedes</a></li>
-  <li class="breadcrumb-item active">Crear</li>
-</ol>
+<div class="row">
+	<div class="col-md-8">
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{{route('institution.dashboard')}}">Inicio</a></li>
+		  <li class="breadcrumb-item"><a href="{{route('headquarter.index')}}">Sedes</a></li>
+		  <li class="breadcrumb-item active">Crear</li>
+		</ol>
+	</div>
+</div>
 @endsection
 
 @section('content')
 	
 	<div class="row">
 		<div class="col-md-8">
+			<h4>Crear sede</h4>
+			<hr>
 			<div class="card">
-				
 				<div class="card-body">
 					{!! Form::open(['route' => 'headquarter.create', 'method' => 'post', 'files'=>true]) !!}
 						{{-- PERSONAL IDENTIFICATION --}}
@@ -107,7 +112,7 @@
 			  				<div class="row">
 			  					<div class="col-md-12">
 			  						<div class="form-group text-center">
-			  							<button class="btn btn-block btn-primary">Crear sede</button>
+			  							<button class="btn btn-block btn-primary">Crear</button>
 			  						</div>
 			  					</div>
 			  				</div>

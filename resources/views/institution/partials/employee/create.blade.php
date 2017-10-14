@@ -1,13 +1,24 @@
 @extends('institution.dashboard.index')
 
+@section('breadcrum')
+<div class="row">
+	<div class="col-md-8">
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{{route('institution.dashboard')}}">Inicio</a></li>
+		  <li class="breadcrumb-item"><a href="{{route('employee.index')}}">Funcionario</a></li>
+		  <li class="breadcrumb-item active">Crear</li>
+		</ol>
+	</div>
+</div>
+@endsection
+
 @section('content')
 	
 	<div class="row">
 		<div class="col-md-12">
+			<h4>Crear funcinario</h4>
+			<hr>
 			<div class="card">
-				<div class="card-header clearfix">
-					<h4 class="float-left">Funcionarios</h4>
-				</div>
 				<div class="card-body">
 					{!! Form::open(['route' => 'headquarter.create', 'method' => 'post', 'files'=>true]) !!}
 						{{-- PERSONAL IDENTIFICATION --}}

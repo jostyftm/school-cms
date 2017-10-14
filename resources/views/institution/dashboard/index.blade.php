@@ -14,6 +14,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    @yield('css')
 
     {{-- Fonts --}}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
@@ -48,5 +49,6 @@
     {{-- Scripts --}}
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
+    @yield('js')
 
 </body>

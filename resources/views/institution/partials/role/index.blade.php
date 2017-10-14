@@ -1,14 +1,23 @@
 @extends('institution.dashboard.index')
 
+@section('breadcrum')
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{{route('institution.dashboard')}}">Inicio</a></li>
+		  <li class="breadcrumb-item active">Role</li>
+		</ol>
+	</div>
+</div>
+@endsection
+
 @section('content')
 	
 	<div class="row">
 		<div class="col-md-7">
+			<h4>Roles</h4>
+			<hr>	
 			<div class="card">
-				<div class="card-header clearfix">
-					<h4 class="float-left">Roles</h4>
-					<a href="{{route('role.create')}}" class="btn btn-sm btn-primary float-right">Nueva rol</a>
-				</div>
 				<div class="card-body">
 					<table class="table">
 						<thead>
@@ -22,10 +31,9 @@
 			</div>
 		</div>
 		<div class="col-md-5">
+			<h4>Crear rol</h4>
+			<hr>
 			<div class="card">
-				<div class="card-header">
-					
-				</div>
 				<div class="card-body">
 					{!! Form::open(['route' => 'role.create', 'method' => 'post']) !!}
 						<div class="row">
@@ -39,7 +47,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form group">
-									{!!Form::submit('Crear rol', ['class'=>'btn btn-block btn-primary']);!!}
+									{!!Form::submit('Crear', ['class'=>'btn btn-block btn-primary']);!!}
 								</div>
 							</div>
 						</div>
