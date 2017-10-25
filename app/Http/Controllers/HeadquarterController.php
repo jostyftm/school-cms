@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\City;
+use App\Address;
+use App\Headquarter;
+
 class HeadquarterController extends Controller
 {
     /**
@@ -13,8 +17,11 @@ class HeadquarterController extends Controller
      */
     public function index()
     {
+        $headquarters = Headquarter::orderBy('id', 'ASC')->paginate(10);
+
         return View('institution.partials.headquarter.index')
-                ->with('item', ['item_sidebar'=>'headquarter']);
+                ->with('item', ['item_sidebar'=>'headquarter'])
+                ->with('headquarters', $headquarters);
     }
 
     /**
@@ -23,9 +30,12 @@ class HeadquarterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        $cities = City::orderBy('name', 'ASC')->pluck('name', 'id');
+
         return View('institution.partials.headquarter.create')
-                ->with('item', ['item_sidebar'=>'headquarter']);
+                ->with('item', ['item_sidebar'=>'headquarter'])
+                ->with('cities', $cities);
     }
 
     /**
@@ -36,7 +46,15 @@ class HeadquarterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $address = new Address($request->all());
+        $address->save();
+
+        $headquarter = new Headquarter($request->all());
+        $headquarter->address_id = $address->id;
+        $headquarter->save();
+        
+        return redirect()->route('headquarter.index');
     }
 
     /**
@@ -58,7 +76,14 @@ class HeadquarterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $headquarter = Headquarter::findOrFail($id);
+
+        $cities = City::orderBy('name', 'ASC')->pluck('name', 'id');
+
+        return View('institution.partials.headquarter.edit')
+                ->with('item', ['item_sidebar'=>'headquarter'])
+                ->with('cities', $cities)
+                ->with('headquarter', $headquarter);
     }
 
     /**
@@ -69,8 +94,20 @@ class HeadquarterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        // Search models
+        $headquarter = Headquarter::findOrFail($id);
+        $address = Address::findOrFail($headquarter->address_id);
+
+        // Fill fields
+        $address->fill($request->all());
+        $headquarter->fill($request->all());
+
+        // Update models
+        $address->save();
+        $headquarter->save();
+
+        return redirect()->route('headquarter.index');
     }
 
     /**

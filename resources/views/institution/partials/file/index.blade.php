@@ -12,7 +12,8 @@
 @endsection
 
 @section('content')
-	<div class="row">
+<iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+	{{-- <div class="row">
 		<div class="col-md-12">
 			<div class="clearfix">
 				<h4 class="float-left">Archivos</h4>
@@ -36,5 +37,5 @@
 				</div>
 			</div>
 		</div>	
-	</div>
+	</div> --}}
 @endsection

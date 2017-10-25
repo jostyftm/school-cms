@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
+use App\Menu;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+
+        // 
+        view()->composer('post.home', function($view){
+            $view->with('menus', Menu::menus());
+        });
     }
 
     /**

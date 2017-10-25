@@ -25,16 +25,35 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>ID</th>
 								<th>Nombre</th>
 								<th>Apellidos</th>
 								<th>Tipo de documento</th>
-								<th>Número de documento</th>
+								<th>N° documento</th>
 								<th>Email</th>
-								<th>Dirección</th>
 								<th>Telefono</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
+						<tbody>
+							@foreach($employees as $employee)
+							<tr>
+								<td>{{ $employee->name }}</td>
+								<td>{{ $employee->last_name }}</td>
+								<td>{{ $employee->identification->identification_type->name }}</td>
+								<td>{{ $employee->identification->identification_number }}</td>
+								<td>{{ $employee->address->email }}</td>
+								<td>{{ $employee->address->phone }}</td>
+								<td>
+									<a href="{{route('employee.edit', $employee)}}" class="btn btn-outline-primary btn-sm" title="Editar Funcionario">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a href="{{route('employee.destroy', $employee)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Funcionario">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
 					</table>
 				</div>
 			</div>

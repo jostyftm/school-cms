@@ -25,13 +25,30 @@
 						<thead>
 							<tr>
 								<th>Titulo</th>
-								<th>Imagen</th>
 								<th>Estado</th>
 								<th>Fecha de creación</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
+						<tbody>
+							@foreach($posts as $post)
+							<tr>
+								<td>{!! $post->title !!}</td>
+								<td>{!! $post->state !!}</td>
+								<td>{!! $post->created_at !!}</td>
+								<td>
+									<a href="{{route('post.edit', $post)}}" class="btn btn-outline-primary btn-sm" title="Editar Entrada">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a href="{{route('post.destroy', $post)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Entrada">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
 					</table>
+					{{$posts->render("pagination::bootstrap-4")}}
 				</div>
 			</div>
 		</div>	

@@ -26,34 +26,77 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					{!! Form::open(['route' => 'page.create', 'method' => 'post', 'files'=>true]) !!}
+					{!! Form::open(['route' => 'page.store', 'method' => 'post', 'files'=>true]) !!}
 						{{-- --}}
 				  			<div class="section_inscription">
 					  			<div class="row">
 					  				<div class="col-md-12">
 					  					<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-					  						{!! Form::label('name', 'Titulo') !!}
-					  						{!! Form::text('name', null, ['class'=>'form-control']) !!}
+					  						{!! Form::label('title', 'Titulo') !!}
+					  						{!! Form::text('title', null, ['class'=>'form-control']) !!}
 					  					</div>
 					  				</div>
 					  			</div>
 					  			<div class="row">
 					  				<div class="col-md-12">
 					  					<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-					  						{!! Form::label('description', 'Descripción') !!}
-					  						{!! Form::textarea('description', null, ['class'=>'form-control']) !!}
+					  						{!! Form::label('body', 'Descripción') !!}
+					  						{!! Form::textarea('body', null, ['class'=>'form-control']) !!}
 					  					</div>
 					  				</div>
 					  			</div>
+					  			<div class="row">
+							    	<div class="col-md-6">
+							    		<div class="form-group{{ $errors->has('parent') ? ' has-error' : '' }}">
+								  			{!! Form::label('parent', 'Superior') !!}
+								  			{!! Form::select('parent', $pages, null, ['class'=>'form-control', 'placeholder' => 'sin superior']) !!}
+								  		</div>
+							    	</div>
+							    	<div class="col-md-6">
+							    		<div class="form-group{{ $errors->has('order') ? ' has-error' : '' }}">
+								  			{!! Form::label('order', 'Orden') !!}
+								  			{!! Form::text('order', null, ['class'=>'form-control']) !!}
+								  		</div>
+							    	</div>
+							    </div>
+							    <div class="row">
+							    	<div class="col-md-12">
+							    		<div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
+								  			{!! Form::label('state', 'Estado') !!}
+								  			{!! Form::select('state', 
+								  				[
+								  					'active' => 'Activo',
+								  					'inactive'=> 'Inactivo'
+								  				]
+								  				, null, ['class'=>'form-control']) !!}
+								  		</div>
+							    	</div>
+							    </div>
+							    <div class="row">
+								    <div class="col-md-12">
+								    	<div class="form-group">
+								    		<label for="">Imagen destacada</label>
+											<div class="input-group">
+											   <span class="input-group-btn">
+											     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-secondary">
+											       <i class="fa fa-picture-o"></i> Choose
+											     </a>
+											   </span>
+											   <input id="thumbnail" class="form-control" type="text" name="image">
+											 </div>
+											 <img id="holder" style="margin-top:15px;max-height:100px;">
+										</div>
+								 	</div>
+								</div>
 					  		</div>
 				  			{{-- BUTTIN --}}
 			  				<div class="row">
 			  					<div class="col-md-12">
-			  						<div class="form-group text-center">
-			  							<button class="btn btn-block btn-primary">Crear</button>
+			  						<div class="form-group">
+			  							<button class="btn btn-primary">Crear</button>
 			  						</div>
 			  					</div>
 			  				</div>
@@ -61,63 +104,26 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="card mb-3">
-				<div class="card-header">Detalles de la página</div>
-				<div class="card-body">
-				    <div class="row">
-				    	<div class="col-md-12">
-				    		<div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
-					  			{!! Form::label('slug', 'URL slug') !!}
-					  			{!! Form::text('slug', null, ['class'=>'form-control']) !!}
-					  		</div>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="col-md-12">
-				    		<div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-					  			{!! Form::label('state', 'Estado') !!}
-					  			{!! Form::select('state', [], null, ['class'=>'form-control']) !!}
-					  		</div>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="col-md-12">
-				    		<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-					  			{!! Form::label('higher', 'superior') !!}
-					  			{!! Form::select('higher', [], null, ['class'=>'form-control']) !!}
-					  		</div>
-				    	</div>
-				    </div>
-			  </div>
-			</div>
-			<div class="card mb-3">
-				<div class="card-header">Imagen de la página</div>
-				<div class="card-body">
-					<div class="row">
-					    <div class="col-md-12">
-					    	<div class="form-group">
-								<label class="custom-file">
-								  <input type="file" id="file2" class="custom-file-input">
-								  <span class="custom-file-control">Cargar</span>
-								</label>
-							</div>
-					 	</div>
-					</div>
-				</div>
-			</div>
-		</div>	
 	</div>
 @endsection
 
 @section('js')
 	<script src="{{asset('plugin/ckeditor/ckeditor.js')}}"></script>
+	<script src="/vendor/laravel-filemanager/js/lfm.js"></script>
 	<script>
 		$(document).ready(function() {
-		  	
-		  	CKEDITOR.replace( 'description', {
+			
+			$('#lfm').filemanager('image');		  	
+
+		  	var options = {
+			    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+			    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+			    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+			    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token=',
 			    language: 'es',
-			});
+			};
+
+		  	CKEDITOR.replace( 'body', options);
 
 		});
 	</script>

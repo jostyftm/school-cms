@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index');
+Route::get('/post/{slug}', 'IndexController@showPost')->name('post.view');
+Route::get('/page/{slug}', 'IndexController@showPage')->name('page.view');
 
 Auth::routes();
 
@@ -32,6 +32,7 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 
 	Route::post('institution_logout', 'InstitutionAuth\LoginController@logout');
 	Route::get('/dashboard', 'InstitutionController@dashboard')->name('institution.dashboard');
+	Route::get('/', 'InstitutionController@dashboard')->name('institution.dashboard');
 	Route::get('/home', 'InstitutionController@dashboard')->name('institution.dashboard');
 
 	Route::resource('headquarter', 'HeadquarterController');

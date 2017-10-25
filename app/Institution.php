@@ -29,6 +29,15 @@ class Institution extends Authenticatable
 		'password', 'remember_token',
 	];
 
+
+  /**
+     * Obtiene la relacion que hay entre la Institución y la sede
+     */
+    public function headquarters()
+    {
+        return $this->hasMany('App\Headquarter', 'institution_id');
+    }
+    
 	//Send password reset notification
   	public function sendPasswordResetNotification($token)
   	{

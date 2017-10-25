@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str as Str;
+
+use App\Page;
+use App\Menu;
 
 class PageController extends Controller
 {
@@ -13,8 +17,11 @@ class PageController extends Controller
      */
     public function index()
     {
+        $pages = Page::orderBy('id', 'ASC')->paginate(2);
+
         return View('institution.partials.page.index')
-                ->with('item', ['item_sidebar'=>'pages']);
+                ->with('item', ['item_sidebar'=>'pages'])
+                ->with('pages', $pages);
     }
 
     /**
@@ -24,8 +31,11 @@ class PageController extends Controller
      */
     public function create()
     {
+        $pages = Page::orderBy('id', 'ASC')->pluck('title', 'id');
+
         return View('institution.partials.page.create')
-                ->with('item', ['item_sidebar'=>'pages']);
+                ->with('item', ['item_sidebar'=>'pages'])
+                ->with('pages', $pages);
     }
 
     /**
@@ -36,7 +46,21 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $page = new Page($request->all());
+        $menu = new Menu($request->all());
+
+        $slug = Str::slug($request->title);
+
+        $page->slug = $slug;
+        $page->save();
+
+        $menu->name = $request->title;
+        $menu->slug = $slug;
+        $menu->parent = ($request->parent == null) ? 0 : 1;
+        $menu->order = ($request->order == null) ? 0 : $request->order;
+        $menu->save();
+
+        return redirect()->route('page.index');
     }
 
     /**
@@ -58,7 +82,13 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Page::findOrFail($id);
+        $menus = Menu::orderBy('id', 'ASC')->pluck('name', 'id');
+
+        return View('institution.partials.page.edit')
+                ->with('item', ['item_sidebar'=>'pages'])
+                ->with('page', $page)
+                ->with('menus',$menus);
     }
 
     /**
@@ -70,7 +100,12 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $page = Page::findOrFail($id);
+        $page->fill($request->all());
+        $page->save();
+
+        return redirect()->route('page.index');
     }
 
     /**

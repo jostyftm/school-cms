@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Category;
+
 class CategoryController extends Controller
 {
     /**
@@ -13,8 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $categories = Category::orderBy('id', 'DESC')->paginate(5);
+
         return View('institution.partials.category.index')
-                ->with('item', ['item_sidebar'=>'categories']);
+                ->with('item', ['item_sidebar'=>'categories'])
+                ->with('categories', $categories);
     }
 
     /**
@@ -36,7 +41,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $category = new Category($request->all());
+        $category->slug = $request->name;
+        $category->save();
+        
+        return redirect()->route('category.index');
     }
 
     /**
@@ -58,7 +68,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrfail($id);
+
+        return View('institution.partials.category.edit')
+                ->with('item', ['item_sidebar'=>'categories'])
+                ->with('category', $category);
     }
 
     /**
@@ -70,7 +84,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrfail($id);
+        $category->fill($request->all());
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**

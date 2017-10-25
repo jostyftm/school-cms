@@ -17,6 +17,7 @@ class CreateHeadquarterTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('nit')->nullable();
+            $table->string('avatar')->nullable();
 
             // Relacion Institución
             $table->integer('institution_id')->unsigned();

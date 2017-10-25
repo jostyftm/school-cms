@@ -16,13 +16,14 @@ class CreateCityTable extends Migration
         Schema::create('city', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('state');
 
             // Relacion
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')
                   ->references('id')->on('province')
                   ->onDelete('cascade');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

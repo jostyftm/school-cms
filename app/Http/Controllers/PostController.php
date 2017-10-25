@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str as Str;
+use App\Post;
+use App\Category;
 class PostController extends Controller
 {
     /**
@@ -13,8 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::orderBy('id', 'ASC')->paginate(2);
+
         return View('institution.partials.post.index')
-                ->with('item', ['item_sidebar'=>'posts']);
+                ->with('item', ['item_sidebar'=>'posts'])
+                ->with('posts', $posts);
     }
 
     /**
@@ -24,8 +29,11 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::orderBy('id', 'DESC')->pluck('name', 'id');
+
         return View('institution.partials.post.create')
-                ->with('item', ['item_sidebar'=>'posts']);
+                ->with('item', ['item_sidebar'=>'posts'])
+                ->with('categories', $categories);
     }
 
     /**
@@ -36,7 +44,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        $post = new Post($request->all());
+        $post->slug = Str::slug($request->title);
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -47,7 +61,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
     }
 
     /**
@@ -58,7 +72,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $categories = Category::orderBy('id', 'DESC')->pluck('name', 'id');
+
+        return View('institution.partials.post.edit')
+                ->with('item', ['item_sidebar'=>'posts'])
+                ->with('categories', $categories)
+                ->with('post', $post);
     }
 
     /**
@@ -70,7 +90,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->fill($request->all());
+        $post->slug = Str::slug($request->title);
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**

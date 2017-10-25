@@ -19,7 +19,7 @@ class CreateEmployeeTable extends Migration
             $table->string('last_name');
             $table->string('email', 60)->unique();
             $table->string('password', 60);
-            $table->string('picture', 60)->nullable();
+            $table->string('avatar', 60)->nullable();
 
             // Relacion identificación
             $table->integer('identification_id')->unsigned();

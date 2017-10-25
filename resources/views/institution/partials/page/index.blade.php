@@ -30,7 +30,28 @@
 								<th>Accion</th>
 							</tr>
 						</thead>
+						<tbody>
+							@foreach($pages as $page)
+							<tr>
+								<td>{!! $page->title !!}</td>
+								<td>{!! $page->state !!}</td>
+								<td>{!! $page->created_at !!}</td>
+								<td>
+									<a href="{{route('page.show', $page)}}" class="btn btn-outline-secondary btn-sm" title="Editar Página" target="_blank">
+										<i class="fa fa-eye"></i>
+									</a>
+									<a href="{{route('page.edit', $page)}}" class="btn btn-outline-primary btn-sm" title="Editar Página">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a href="{{route('page.destroy', $page)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Página">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
 					</table>
+					{{$pages->render("pagination::bootstrap-4")}}
 				</div>
 			</div>
 		</div>	

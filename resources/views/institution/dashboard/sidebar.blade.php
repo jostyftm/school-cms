@@ -72,7 +72,7 @@
         <i class="fa fa-paint-brush"></i> 
         <span class="hidden-sm-down">Personalizacion</span>
     </a> --}}
-    {{--
+    
     <a href="#menu1" class="item-sidebar collapsed {{($item['item_sidebar'] == 'appearance') ? 'active' : ''}}" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
         <i class="fa fa-paint-brush"></i> 
         <span class="hidden-sm-down">Personalizacion</span> 
@@ -80,7 +80,7 @@
         <div class="collapse submenu" id="menu1">
             <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a>
             <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a>
-        </div> --}}
+        </div> 
 
     {{-- Settings  --}}
     <a href="{{route('setting.index')}}" class="item-sidebar collapsed {{($item['item_sidebar'] == 'setting') ? 'active' : ''}}" data-parent="#sidebar">

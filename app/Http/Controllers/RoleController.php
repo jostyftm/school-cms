@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Role;
+
 class RoleController extends Controller
 {
     /**
@@ -13,8 +15,11 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $roles = Role::orderBy('id', 'ASC')->paginate(10);
+
         return View('institution.partials.role.index')
-                ->with('item', ['item_sidebar'=>'roles']);
+                ->with('item', ['item_sidebar'=>'roles'])
+                ->with('roles', $roles);
     }
 
     /**
@@ -36,7 +41,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Role::create($request->all());
+
+        return redirect()->route('role.index');
     }
 
     /**
