@@ -40,7 +40,7 @@
 									<a href="{{route('post.edit', $post)}}" class="btn btn-outline-primary btn-sm" title="Editar Entrada">
 										<i class="fa fa-edit"></i>
 									</a>
-									<a href="{{route('post.destroy', $post)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Entrada">
+									<a href="{{route('post.destroy', $post)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Entrada" onclick="return confirm('Desea eliminar esta entrada')">
 										<i class="fa fa-trash"></i>
 									</a>
 								</td>

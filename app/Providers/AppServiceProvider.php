@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
 
         // 
         view()->composer('post.home', function($view){
-            $view->with('menus', Menu::menus());
+            $view->with('menu', Menu::display('navbar'));
         });
     }
 

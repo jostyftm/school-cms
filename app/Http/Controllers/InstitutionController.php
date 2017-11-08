@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
 class InstitutionController extends Controller
 {
     /**
@@ -91,7 +93,10 @@ class InstitutionController extends Controller
      */
     public function dashboard()
     {
+        $institution = Auth::guard('web_institution')->user();
+
         return View('institution.dashboard.index')
-               ->with('item', ['item_sidebar'=>'home']);
+               ->with('item', ['item_sidebar'=>'home'])
+               ->with('institution', $institution);
     }
 }

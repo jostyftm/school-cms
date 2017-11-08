@@ -41,11 +41,7 @@
 			@yield('posts')
       	</div>
       	<aside class="col-sm-3 ml-sm-auto blog-sidebar">
-	        <div class="sidebar-module sidebar-module-inset">
-	            <h4>About</h4>
-	            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-	        </div>
-          	<div class="sidebar-module">
+          	{{-- <div class="sidebar-module">
             	<h4>Archives</h4>
             	<ol class="list-unstyled">
 	              	<li><a href="#">March 2014</a></li>
@@ -69,17 +65,17 @@
 	              <li><a href="#">Twitter</a></li>
 	              <li><a href="#">Facebook</a></li>
 	            </ol>
-          	</div>
+          	</div> --}}
         </aside>
      </div>
   	</main>
-    <footer class="blog-footer">
+    {{-- <footer class="blog-footer">
       <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
       <p>
         <a href="#">Back to top</a>
       </p>
-    </footer>
-	{{-- Scripts --}}
+    </footer> --}}
+	 <!-- Scripts -->
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>

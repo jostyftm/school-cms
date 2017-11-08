@@ -17,7 +17,7 @@ use Auth;
 class RegisterController extends Controller
 {	
 
-	protected $redirectPath = '/home';
+	protected $redirectPath = '/institution';
 
     //shows registration form to institution
 	public function showRegistrationForm()

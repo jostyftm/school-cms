@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'School Cms'),
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,11 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+
+        /*
+         *
+         */
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

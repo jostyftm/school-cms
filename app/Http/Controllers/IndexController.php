@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use App\Page;
+use App\Menu;
 
 class IndexController extends Controller
 {

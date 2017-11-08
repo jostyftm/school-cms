@@ -14,7 +14,7 @@ use Auth;
 class LoginController extends Controller
 {	
 	//Where to redirect seller after login.
-    protected $redirectTo = '/institution/home';
+    protected $redirectTo = '/institution';
 
 
     //Trait

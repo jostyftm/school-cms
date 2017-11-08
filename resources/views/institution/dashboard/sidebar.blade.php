@@ -31,10 +31,10 @@
     </a>
 
     {{--  --}}
-    <a href="{{route('group.index')}}" class="item-sidebar collapsed {{($item['item_sidebar'] == 'groups') ? 'active' : ''}}" data-parent="#sidebar">
+    {{-- <a href="{{route('group.index')}}" class="item-sidebar collapsed {{($item['item_sidebar'] == 'groups') ? 'active' : ''}}" data-parent="#sidebar">
         <i class="fa fa-users"></i> 
         <span class="hidden-sm-down">Grupos</span>
-    </a>
+    </a> --}}
 
     {{--  --}}
     <a href="{{route('file.index')}}" class="item-sidebar collapsed {{($item['item_sidebar'] == 'files') ? 'active' : ''}}" data-parent="#sidebar">
@@ -68,18 +68,14 @@
     <div class="separed_section_menu">
         <span>Ajustes</span>
     </div>
-    {{-- <a href="#" class="item-sidebar collapsed {{($item['item_sidebar'] == 'appearance') ? 'active' : ''}}" data-parent="#sidebar">
-        <i class="fa fa-paint-brush"></i> 
-        <span class="hidden-sm-down">Personalizacion</span>
-    </a> --}}
     
-    <a href="#menu1" class="item-sidebar collapsed {{($item['item_sidebar'] == 'appearance') ? 'active' : ''}}" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false">
+    <a href="#menu1" class="item-sidebar  {{($item['item_sidebar'] == 'appearance') ? 'active' : 'collapsed'}}" data-toggle="collapse" data-parent="#sidebar" aria-expanded="{{($item['item_sidebar'] == 'appearance') ? 'true' : 'false'}}">
         <i class="fa fa-paint-brush"></i> 
         <span class="hidden-sm-down">Personalizacion</span> 
     </a>
-        <div class="collapse submenu" id="menu1">
-            <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a>
-            <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a>
+        <div class="collapse submenu {{($item['item_sidebar'] == 'appearance') ? 'show' : ''}}" id="menu1">
+            <a href="{{route('menu.index')}}" class="item-sidebar" data-parent="#menu1">Menu</a>
+            {{-- <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a> --}}
         </div> 
 
     {{-- Settings  --}}

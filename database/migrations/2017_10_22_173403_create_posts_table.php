@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->string('slug')->unique();
             $table->enum('state', ['active', 'inactive'])->default('active');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

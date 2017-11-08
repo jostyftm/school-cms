@@ -1,29 +1,20 @@
-@if ($item['submenu'] == [])
+@if(count($item->items) == 0)
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('page.view',$item['slug']) }}">{{ $item['name'] }} </a>
+        <a class="nav-link" href="{{ url($item->url) }}">{{ $item->title }} </a>
     </li>
 @else
     <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $item['name'] }} 
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $item->title }} 
             <span class="caret"></span>
         </a>
-        <div class="dropdown-menu sub-menu">
-            @foreach ($item['submenu'] as $submenu)
-                @if ($submenu['submenu'] == [])
-                    <a href="{{ route('page.view',$submenu['slug']) }}" class="dropdown-item">{{ $submenu['name'] }} </a>
+        <ul class="dropdown-menu">
+            @foreach ($item->items as $item1)
+                @if (count($item1->items) == 0)
+                    <li><a href="{{ url($item1->url) }}" class="dropdown-item">{{ $item1->title }} </a></li>
                 @else
-                    @include('menu.menu-item', [ 'item' => $submenu ])
+                    @include('menu.menu-item', [ 'item' => $item1 ])
                 @endif
             @endforeach
-        </div>
-        {{-- <ul class="dropdown-menu sub-menu">
-            @foreach ($item['submenu'] as $submenu)
-                @if ($submenu['submenu'] == [])
-                    <li><a href="{{ url('menu',['id' => $submenu['id'], 'slug' => $submenu['slug']]) }}">{{ $submenu['name'] }} </a></li>
-                @else
-                    @include('menu.menu-item', [ 'item' => $submenu ])
-                @endif
-            @endforeach
-        </ul> --}}
+        </ul>
     </li>
 @endif

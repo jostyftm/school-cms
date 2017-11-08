@@ -48,20 +48,6 @@
 					  					</div>
 					  				</div>
 					  			</div>
-					  			<div class="row">
-							    	<div class="col-md-6">
-							    		<div class="form-group{{ $errors->has('parent') ? ' has-error' : '' }}">
-								  			{!! Form::label('parent', 'Superior') !!}
-								  			{!! Form::select('parent', $pages, null, ['class'=>'form-control', 'placeholder' => 'sin superior']) !!}
-								  		</div>
-							    	</div>
-							    	<div class="col-md-6">
-							    		<div class="form-group{{ $errors->has('order') ? ' has-error' : '' }}">
-								  			{!! Form::label('order', 'Orden') !!}
-								  			{!! Form::text('order', null, ['class'=>'form-control']) !!}
-								  		</div>
-							    	</div>
-							    </div>
 							    <div class="row">
 							    	<div class="col-md-12">
 							    		<div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">

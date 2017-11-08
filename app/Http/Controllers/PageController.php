@@ -47,18 +47,11 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = new Page($request->all());
-        $menu = new Menu($request->all());
 
         $slug = Str::slug($request->title);
 
-        $page->slug = $slug;
+        $page->slug = 'p/'.$slug;
         $page->save();
-
-        $menu->name = $request->title;
-        $menu->slug = $slug;
-        $menu->parent = ($request->parent == null) ? 0 : 1;
-        $menu->order = ($request->order == null) ? 0 : $request->order;
-        $menu->save();
 
         return redirect()->route('page.index');
     }
@@ -71,7 +64,7 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -116,6 +109,9 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $page = Page::findOrFail($id);
+        $page->delete();
+
+        return redirect()->route('page.index');
     }
 }

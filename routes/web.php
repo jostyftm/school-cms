@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 Route::get('/', 'IndexController@index');
 Route::get('/post/{slug}', 'IndexController@showPost')->name('post.view');
 Route::get('/page/{slug}', 'IndexController@showPage')->name('page.view');
@@ -27,10 +31,15 @@ Route::group(['middleware' => 'institution_guest'], function() {
 
 });
 
+Route::group(['prefix'=>'ajax'], function(){
+
+	Route::get('/{id}/findMenuItem', 'MenuController@findMenuItem')->name('menu.findMenuItem');
+});
+
 //Only logged in sellers can access or send requests to these pages
 Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], function(){
 
-	Route::post('institution_logout', 'InstitutionAuth\LoginController@logout');
+	Route::post('institution_logout', 'InstitutionAuth\LoginController@logout')->name('institution.logout');
 	Route::get('/dashboard', 'InstitutionController@dashboard')->name('institution.dashboard');
 	Route::get('/', 'InstitutionController@dashboard')->name('institution.dashboard');
 	Route::get('/home', 'InstitutionController@dashboard')->name('institution.dashboard');
@@ -40,10 +49,20 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 	Route::resource('role', 'RoleController');
 	Route::resource('group', 'GroupController');
 	Route::resource('file', 'FileController');
+	
 	Route::resource('post', 'PostController');
+	Route::get('post/{id}/destroy', 'PostController@destroy')->name('post.destroy');
+
 	Route::resource('page', 'PageController');
+	Route::get('page/{id}/destroy', 'PageController@destroy')->name('page.destroy');
+
 	Route::resource('category', 'CategoryController');
 	Route::resource('setting', 'SettingController');
+	Route::resource('menu', 'MenuController');
+	Route::get('{id}/build', 'MenuController@build')->name('menu.build');
+	Route::post('addItem', 'MenuController@addItem')->name('menu.addItem');
+	Route::put('{id?}/updateItem', 'MenuController@updateItem')->name('menu.updateItem');
+	Route::post('/menu/{id?}/orderMenu', 'MenuController@orderItem');
 });
 
 //Password reset routes

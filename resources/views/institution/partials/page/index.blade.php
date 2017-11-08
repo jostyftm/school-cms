@@ -26,6 +26,7 @@
 							<tr>
 								<th>Titulo</th>
 								<th>Estado</th>
+								<th>Url</th>
 								<th>Fecha de creación</th>
 								<th>Accion</th>
 							</tr>
@@ -35,6 +36,7 @@
 							<tr>
 								<td>{!! $page->title !!}</td>
 								<td>{!! $page->state !!}</td>
+								<td>{{ env('APP_URL')}}/{!! $page->slug !!}</td>
 								<td>{!! $page->created_at !!}</td>
 								<td>
 									<a href="{{route('page.show', $page)}}" class="btn btn-outline-secondary btn-sm" title="Editar Página" target="_blank">
@@ -43,7 +45,7 @@
 									<a href="{{route('page.edit', $page)}}" class="btn btn-outline-primary btn-sm" title="Editar Página">
 										<i class="fa fa-edit"></i>
 									</a>
-									<a href="{{route('page.destroy', $page)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Página">
+									<a href="{{route('page.destroy', $page)}}" class="btn btn-outline-danger btn-sm" title="Eliminar Página" onclick="return confirm('Desea eliminar esta página')">
 										<i class="fa fa-trash"></i>
 									</a>
 								</td>

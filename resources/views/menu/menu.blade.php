@@ -10,12 +10,11 @@
 			<li class="nav-item">
 				<a href="" class="nav-link active">Inicio</a>
 			</li>
-		    @foreach ($menus as $key => $item)
-		        @if ($item['parent'] != 0)
-		            @break
-		        @endif
-		        @include('menu.menu-item', ['item' => $item])
-		    @endforeach
+			@foreach($menu->items as $item)
+				@if($item->parent_id == 0)
+					@include('menu.menu-item', ['item'=>$item])
+				@endif
+			@endforeach
 		</ul>
 	</div>
 </nav>
