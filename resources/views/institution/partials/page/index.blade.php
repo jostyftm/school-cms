@@ -21,7 +21,7 @@
 			<hr>
 			<div class="card">
 				<div class="card-body">
-					<table class="table">
+					<table class="table table-responsive">
 						<thead>
 							<tr>
 								<th>Titulo</th>
@@ -36,10 +36,10 @@
 							<tr>
 								<td>{!! $page->title !!}</td>
 								<td>{!! $page->state !!}</td>
-								<td>{{ env('APP_URL')}}/{!! $page->slug !!}</td>
-								<td>{!! $page->created_at !!}</td>
+								<td>{{ env('APP_URL')}}/page/{!! $page->slug !!}</td>
+								<td>{!! $page->created_at->diffForHumans() !!}</td>
 								<td>
-									<a href="{{route('page.show', $page)}}" class="btn btn-outline-secondary btn-sm" title="Editar Página" target="_blank">
+									<a href="{{route('page.view', $page->slug)}}" class="btn btn-outline-secondary btn-sm" title="Ver Página" target="_blank">
 										<i class="fa fa-eye"></i>
 									</a>
 									<a href="{{route('page.edit', $page)}}" class="btn btn-outline-primary btn-sm" title="Editar Página">

@@ -10,10 +10,12 @@ use App\Menu;
 
 class IndexController extends Controller
 {
+
     public function index()
     {
     	$posts = Post::orderBy('id', 'ASC')->paginate(2);
 
+        // dd();
     	return View('post.index')
     		   ->with('posts', $posts); 
     }

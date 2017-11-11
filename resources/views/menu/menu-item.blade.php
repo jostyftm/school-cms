@@ -10,7 +10,7 @@
         <ul class="dropdown-menu">
             @foreach ($item->items as $item1)
                 @if (count($item1->items) == 0)
-                    <li><a href="{{ url($item1->url) }}" class="dropdown-item">{{ $item1->title }} </a></li>
+                    <li><a href="{{ url($item1->url) }}" class="dropdown-item" target="{{$item1->target}}">{{ $item1->title }} </a></li>
                 @else
                     @include('menu.menu-item', [ 'item' => $item1 ])
                 @endif

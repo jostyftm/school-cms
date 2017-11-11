@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use Auth;
 
+use App\Headquarter;
+use App\Category;
+use App\Employee;
+use App\Contract;
+use App\Post;
+use App\Page;
+
 class InstitutionController extends Controller
 {
     /**
@@ -95,8 +102,21 @@ class InstitutionController extends Controller
     {
         $institution = Auth::guard('web_institution')->user();
 
-        return View('institution.dashboard.index')
+        $headquarters = Headquarter::all();
+        $employees = Employee::all();  
+        $contracts = Contract::all();
+        $categories = Category::all();
+        $posts = Post::all();
+        $pages = Page::all();
+
+        return View('institution.partials.home.index')
                ->with('item', ['item_sidebar'=>'home'])
-               ->with('institution', $institution);
+               ->with('institution', $institution)
+               ->with('headquarters', $headquarters)
+               ->with('employees', $employees)
+               ->with('contracts', $contracts)
+               ->with('categories', $categories)
+               ->with('posts', $posts)
+               ->with('pages', $pages);
     }
 }

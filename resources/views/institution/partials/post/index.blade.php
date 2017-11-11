@@ -21,7 +21,7 @@
 			<hr>
 			<div class="card">
 				<div class="card-body">
-					<table class="table">
+					<table class="table table-responsive">
 						<thead>
 							<tr>
 								<th>Titulo</th>
@@ -35,7 +35,7 @@
 							<tr>
 								<td>{!! $post->title !!}</td>
 								<td>{!! $post->state !!}</td>
-								<td>{!! $post->created_at !!}</td>
+								<td>{!! $post->created_at->diffForHumans() !!}</td>
 								<td>
 									<a href="{{route('post.edit', $post)}}" class="btn btn-outline-primary btn-sm" title="Editar Entrada">
 										<i class="fa fa-edit"></i>

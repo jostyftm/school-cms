@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Institution;
+
 class SettingController extends Controller
 {
     /**
@@ -81,5 +83,24 @@ class SettingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateAccount(Request $request, $id)
+    {   
+        
+        $institution = Institution::findOrFail($id);
+        $institution->fill($request->all());
+        $institution->save();
+
+        return redirect()->route('setting.index');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $institution = Institution::findOrFail($id);
+        $institution->password = bcrypt($request->password);
+        $institution->save();
+
+        return redirect()->route('setting.index');   
     }
 }

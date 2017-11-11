@@ -20,9 +20,15 @@
 				<a href="{{route('menu.create')}}" class="float-right btn btn-sm btn-primary">Nuevo menu</a>
 			</div>
 			<hr>
+			<div class="alert alert-info alert-dismissible fade show" role="alert">
+				Para crear el menu principal debe de llamarlo <strong>nabvar</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    	<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
 			<div class="card">
 				<div class="card-body">
-					<table class="table">
+					<table class="table table-responsive">
 						<thead>
 							<tr>
 								<th>Nombre</th>

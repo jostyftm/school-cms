@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'ASC')->paginate(2);
+        $posts = Post::orderBy('id', 'ASC')->paginate(5);
 
         return View('institution.partials.post.index')
                 ->with('item', ['item_sidebar'=>'posts'])

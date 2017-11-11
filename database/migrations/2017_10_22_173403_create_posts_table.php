@@ -20,6 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->enum('state', ['active', 'inactive'])->default('active');
             $table->string('image')->nullable();
+
+            $table->unsignedInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

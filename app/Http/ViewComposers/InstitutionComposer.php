@@ -14,8 +14,13 @@ class InstitutionComposer {
      */
     public function compose(View $view)
     {
-        $institution = Auth::guard('web_institution')->user();;
-        $view->with('institution', $institution);
+
+        if(Auth()->guard('web_institution')->check())
+        {
+            $institution = Auth::guard('web_institution')->user();
+            $view->with('institution', $institution);
+        }
+        
     }
  
 }

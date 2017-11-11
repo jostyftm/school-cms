@@ -19,6 +19,13 @@ Route::get('/', 'IndexController@index');
 Route::get('/post/{slug}', 'IndexController@showPost')->name('post.view');
 Route::get('/page/{slug}', 'IndexController@showPage')->name('page.view');
 
+// 
+Route::group(['prefix'=>'contract'], function(){
+
+	Route::get('/', 'ContractController@showContracts');
+	Route::get('/{slug}', 'ContractController@showContract')->name('show.contract');
+});
+
 Auth::routes();
 
 //Logged in users/seller cannot access or send requests these pages
@@ -57,12 +64,20 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 	Route::get('page/{id}/destroy', 'PageController@destroy')->name('page.destroy');
 
 	Route::resource('category', 'CategoryController');
+
 	Route::resource('setting', 'SettingController');
+	Route::put('{id}/updateAccount', 'SettingController@updateAccount')->name('setting.updateAccount');
+	Route::put('{id}/updatePassword', 'SettingController@updatePassword')->name('setting.updatePassword');
+
 	Route::resource('menu', 'MenuController');
 	Route::get('{id}/build', 'MenuController@build')->name('menu.build');
 	Route::post('addItem', 'MenuController@addItem')->name('menu.addItem');
+	Route::delete('{id?}/destroyItem', 'MenuController@destroyItem')->name('menu.destroyItem');
 	Route::put('{id?}/updateItem', 'MenuController@updateItem')->name('menu.updateItem');
 	Route::post('/menu/{id?}/orderMenu', 'MenuController@orderItem');
+
+	Route::resource('contract', 'ContractController');
+	Route::get('contract/{id}/destroy', 'ContractController@destroy')->name('contract.destroy');
 });
 
 //Password reset routes

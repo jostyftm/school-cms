@@ -3,7 +3,7 @@
     <div class="modal-content">
       {!! Form::open(['route' => 'menu.updateItem', 'method' => 'post', 'id'=>'formEditItem']) !!}
         <div class="modal-header">
-          <h5 class="modal-title" id="addItemModalLabel">Agregar Item</h5>
+          <h5 class="modal-title" id="addItemModalLabel">Editar Item</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -25,8 +25,7 @@
             <div class="row">
               <div class="col-md-12">
                 {!! Form::label('parent_id', 'Superior', []) !!}
-                {!! Form::select('parent_id', $items_add, null, ['class'=>'form-control', 'placeholder'=>'Item superior']) 
-                !!}
+                {!! Form::select('parent_id', $items_add, null, ['class'=>'form-control', 'placeholder'=>'Item superior'])!!}
               </div>
             </div>
             <div class="row">
@@ -37,12 +36,13 @@
                     null, ['class'=>'form-control']) 
                 !!}
               </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
           {!! Form::hidden('id', null, ['id'=>'id']) !!}
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          {!! Form::submit('Agregar', ['class'=>'btn btn-primary']) !!}
+          {!! Form::submit('Actualizar', ['class'=>'btn btn-primary']) !!}
         </div>
       {!! Form::close() !!}
     </div>

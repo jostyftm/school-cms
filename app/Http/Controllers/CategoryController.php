@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str as Str;
 
 use App\Category;
 
@@ -43,7 +44,7 @@ class CategoryController extends Controller
     {
 
         $category = new Category($request->all());
-        $category->slug = $request->name;
+        $category->slug = Str::slug($request->name);
         $category->save();
         
         return redirect()->route('category.index');
@@ -86,6 +87,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrfail($id);
         $category->fill($request->all());
+        $category->slug = Str::slug($request->name);
         $category->save();
 
         return redirect()->route('category.index');

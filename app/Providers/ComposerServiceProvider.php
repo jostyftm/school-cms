@@ -14,7 +14,11 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['institution.dashboard.header', 'welcome'], 'App\Http\ViewComposers\InstitutionComposer');
+        View::composer(
+            ['institution.dashboard.index', 'menu.menu', 'institution.partials.setting.index'], 
+            'App\Http\ViewComposers\InstitutionComposer');
+
+        View::composer(['layouts.sidebar', 'post.show'], 'App\Http\ViewComposers\CategoryComposer');
     }
 
     /**

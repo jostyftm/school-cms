@@ -49,16 +49,8 @@
 				  					</div>
 				  				</div>
 				  			</div>
-				  			{{-- <div class="row">
-						    	<div class="col-md-12">
-						    		<div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
-							  			{!! Form::label('slug', 'URL slug') !!}
-							  			{!! Form::text('slug', null, ['class'=>'form-control']) !!}
-							  		</div>
-						    	</div>
-						    </div> --}}
 						    <div class="row">
-						    	<div class="col-md-12">
+						    	<div class="col-md-6">
 						    		<div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
 							  			{!! Form::label('state', 'Estado') !!}
 							  			{!! Form::select('state', 
@@ -68,12 +60,12 @@
 							  				], null, ['class'=>'form-control']) !!}
 							  		</div>
 						    	</div>
-						    	{{-- <div class="col-md-6">
+						    	<div class="col-md-6">
 						    		<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-							  			{!! Form::label('category', 'Categoria') !!}
-							  			{!! Form::select('category', $categories, null, ['class'=>'form-control']) !!}
+							  			{!! Form::label('category_id', 'Categoria') !!}
+							  			{!! Form::select('category_id', $categories, null, ['class'=>'form-control', 'placeholder'=>'Seleccione una categoria']) !!}
 							  		</div>
-						    	</div> --}}
+						    	</div>
 						    </div>
 						    <div class="row">
 							    <div class="col-md-12">

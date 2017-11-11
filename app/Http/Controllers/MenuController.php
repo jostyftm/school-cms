@@ -18,7 +18,7 @@ class MenuController extends Controller
         $menus = Menu::orderBy('id', 'DESC')->paginate(5);
 
         return View('institution.partials.menu.index')
-               ->with('item', ['item_sidebar'=>'appearance'])
+               ->with('item', ['item_sidebar'=>'appearance', 'subitem_sidebar'=>'menu'])
                ->with('menus', $menus);
     }
 
@@ -94,10 +94,6 @@ class MenuController extends Controller
     public function build($id)
     {
 
-        // $item = MenuItem::findOrFail(2);
-
-        // dd($item->items);
-
         $menu = Menu::findOrFail($id);
         $items = $menu->items->pluck('title', 'id');
 
@@ -125,6 +121,19 @@ class MenuController extends Controller
 
             return response()->json($item);
         }
+    }
+
+    public function destroyItem(Request $request, $id)
+    {
+        if($request->ajax()){
+
+            $item = MenuItem::findOrFail($id);
+            $item->delete();
+
+            return response()->json($item);
+        }
+
+
     }
 
     public function orderItem(Request $request, $id)

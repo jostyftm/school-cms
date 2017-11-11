@@ -60,12 +60,12 @@
 							  				], $post->state, ['class'=>'form-control']) !!}
 							  		</div>
 						    	</div>
-						    	{{-- <div class="col-md-6">
+						    	<div class="col-md-6">
 						    		<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-							  			{!! Form::label('category', 'Categoria') !!}
-							  			{!! Form::select('category', $categories, $post->category, ['class'=>'form-control']) !!}
+							  			{!! Form::label('category_id', 'Categoria') !!}
+							  			{!! Form::select('category_id', $categories, $post->category_id, ['class'=>'form-control']) !!}
 							  		</div>
-						    	</div> --}}
+						    	</div>
 						    </div>
 						    <div class="row">
 							    <div class="col-md-12">

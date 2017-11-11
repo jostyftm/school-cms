@@ -17,7 +17,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::orderBy('id', 'ASC')->paginate(2);
+        $pages = Page::orderBy('id', 'ASC')->paginate(5);
 
         return View('institution.partials.page.index')
                 ->with('item', ['item_sidebar'=>'pages'])
@@ -47,10 +47,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = new Page($request->all());
-
-        $slug = Str::slug($request->title);
-
-        $page->slug = 'p/'.$slug;
+        $page->slug = Str::slug($request->title);
         $page->save();
 
         return redirect()->route('page.index');
@@ -96,6 +93,7 @@ class PageController extends Controller
 
         $page = Page::findOrFail($id);
         $page->fill($request->all());
+        $page->slug = Str::slug($request->title);
         $page->save();
 
         return redirect()->route('page.index');
