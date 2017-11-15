@@ -24,9 +24,11 @@
 						<a href="{{route('show.contract', $contract->slug)}}" class="btn btn-outline-secondary btn-sm">
 							<i class="fa fa-eye"></i>
 						</a>
+						@if($contract->file != NULL)
 						<a href="{{$contract->file}}" class="btn btn-outline-primary btn-sm" target="_blank">
 							<i class="fa fa-download"></i>
 						</a>
+						@endif
 					</td>
 				</tr>
 				@endforeach

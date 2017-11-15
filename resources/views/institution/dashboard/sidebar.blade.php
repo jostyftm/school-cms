@@ -82,6 +82,7 @@
     </a>
         <div class="collapse submenu {{($item['item_sidebar'] == 'appearance') ? 'show' : ''}}" id="menu1">
             <a href="{{route('menu.index')}}" class="item-sidebar {{(isset($item['subitem_sidebar']) && $item['subitem_sidebar']=='menu') ? 'subactive' : '' }}" data-parent="#menu1">Menu</a>
+            <a href="{{route('banner.index')}}" class="item-sidebar {{(isset($item['subitem_sidebar']) && $item['subitem_sidebar']=='banner') ? 'subactive' : '' }}" data-parent="#menu1">Banner</a>
             {{-- <a href="#" class="item-sidebar" data-parent="#menu1">Menu</a> --}}
         </div> 
 

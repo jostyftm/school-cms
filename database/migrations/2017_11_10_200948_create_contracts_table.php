@@ -18,7 +18,7 @@ class CreateContractsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

@@ -1,11 +1,13 @@
 @extends('institution.dashboard.index')
 
 @section('breadcrum')
+@include('complements.errors')
 <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
 		  <li class="breadcrumb-item"><a href="{{route('institution.dashboard')}}">Inicio</a></li>
-		  <li class="breadcrumb-item active">Categorias</li>
+		  <li class="breadcrumb-item "><a href="{{route('category.index')}}">Categorias</a></li>
+		  <li class="breadcrumb-item active">Editar</li>
 		</ol>
 	</div>
 </div>

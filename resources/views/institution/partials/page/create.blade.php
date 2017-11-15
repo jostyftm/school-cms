@@ -5,6 +5,7 @@
 @endsection
 
 @section('breadcrum')
+@include('complements.errors')
 <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
@@ -34,7 +35,7 @@
 				  			<div class="section_inscription">
 					  			<div class="row">
 					  				<div class="col-md-12">
-					  					<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+					  					<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
 					  						{!! Form::label('title', 'Titulo') !!}
 					  						{!! Form::text('title', null, ['class'=>'form-control']) !!}
 					  					</div>
@@ -42,7 +43,7 @@
 					  			</div>
 					  			<div class="row">
 					  				<div class="col-md-12">
-					  					<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+					  					<div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
 					  						{!! Form::label('body', 'Descripción') !!}
 					  						{!! Form::textarea('body', null, ['class'=>'form-control']) !!}
 					  					</div>

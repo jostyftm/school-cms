@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PageRequest;
 use Illuminate\Support\Str as Str;
 
 use App\Page;
@@ -44,7 +45,7 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
         $page = new Page($request->all());
         $page->slug = Str::slug($request->title);

@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-	
+	@include('complements.errors')
 	<div class="row">
 		<div class="col-md-8">
 			<h4>Crear sede</h4>
@@ -82,7 +82,7 @@
 				  						</div>
 				  					</div>
 				  					<div class="col-md-4">
-				  						<div class="form-group {{ $errors->has('id_city_address') ? ' has-error' : '' }}">
+				  						<div class="form-group{{ $errors->has('id_city_address') ? ' has-error' : '' }}">
 				  							{!! Form::label('id_city_address', 'Ciudad') !!}
 				  							{!! Form::select('id_city_address', $cities, old('id_city_address'), ['class'=>'chosen-select form-control chosen-select', 'placeholder'=>'seleccione una ciudad']) !!}
 				  						</div>

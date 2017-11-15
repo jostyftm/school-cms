@@ -17,6 +17,7 @@
 @endsection
 
 @section('content')
+	@include('complements.errors')
 	<div class="row">
 		<div class="col-md-12">
 			<div>
@@ -40,7 +41,7 @@
 					  					</div>
 					  				</div>
 					  				<div class="col-md-3">
-					  					<div class="form-group">
+					  					<div class="form-group{{ $errors->has('created_at') ? ' has-error' : '' }}">
 					  						{!! Form::label('created_at', 'Fecha de creacion', []) !!}
 					  						{!! Form::text('created_at', null, ['class' => 'form-control datepicker']) !!}
 					  					</div>
@@ -61,7 +62,7 @@
 											<div class="input-group">
 											   <span class="input-group-btn">
 											     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-secondary">
-											       <i class="fa fa-picture-o"></i> Escoger
+											       <i class="fa fa-file-pdf-o"></i> Escoger
 											     </a>
 											   </span>
 											   <input id="thumbnail" class="form-control" type="text" name="file">

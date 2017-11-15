@@ -21,7 +21,7 @@
 			</div>
 			<hr>
 			<div class="alert alert-info alert-dismissible fade show" role="alert">
-				Para crear el menu principal debe de llamarlo <strong>nabvar</strong>
+				Para crear el menu principal debe de llamarlo <strong>main</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			    	<span aria-hidden="true">&times;</span>
 			  </button>

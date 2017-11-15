@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('es');
         // 
         view()->composer(['layouts.index', ''], function($view){
-            $menu = Menu::display('navbar');
+            $menu = Menu::display('main');
             $view->with('menu', $menu);
         });
     }

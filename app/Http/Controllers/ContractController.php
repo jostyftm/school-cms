@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ContractRequest;
 use Illuminate\Support\Str as Str;
 
+use Carbon\Carbon;
 use App\Contract;
 
 class ContractController extends Controller
@@ -40,7 +42,7 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContractRequest $request)
     {
         $contract = new Contract($request->all());
         $contract->slug = Str::slug($request->name);

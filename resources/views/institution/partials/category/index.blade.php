@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-	
+	@include('complements.errors')
 	<div class="row">
 		<div class="col-md-7">
 			<h4>Categorias</h4>

@@ -24,6 +24,14 @@ class HeadquarterController extends Controller
                 ->with('headquarters', $headquarters);
     }
 
+    public function all()
+    {
+        $headquarters = Headquarter::all();
+
+        return View('headquarter.index')
+                ->with('headquarters', $headquarters);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -47,6 +55,16 @@ class HeadquarterController extends Controller
     public function store(Request $request)
     {
         
+        $request->validate(
+            [
+                'name'  =>  'required|unique:headquarter',
+                'id_city_address'   =>  'required'
+            ], [
+                'name.required' =>  'El nombre de la sede es requerido',
+                'name.uniqued'  =>  'El nombre de esta sede ya esta registrado, por favor prueba con otro',
+                'id_city_address.required'   =>  'Seleccione una ciudad',
+        ]);
+
         $address = new Address($request->all());
         $address->save();
 
@@ -65,7 +83,10 @@ class HeadquarterController extends Controller
      */
     public function show($id)
     {
-        //
+        $headquarter = Headquarter::findOrFail($id);
+
+        return View('headquarter.show')
+                ->with('headquarter', $headquarter);
     }
 
     /**

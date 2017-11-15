@@ -17,14 +17,13 @@
     <!-- Custom styles for this template -->
     <link href="/css/blog-home.css" rel="stylesheet">
     @yield('css')
-
   </head>
 
   <body>
     <div id="wrap">
       <!-- Navigation -->
       @include('menu.menu')
-
+      @yield('jumbotron')
       <!-- Page Content -->
       <div class="container">
         <div class="row">
@@ -34,9 +33,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark footer">
+    <footer class="py-5 bg-primary footer">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Atenea {{date('Y')}}</p>
       </div>
     </footer>
 

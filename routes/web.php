@@ -26,6 +26,12 @@ Route::group(['prefix'=>'contract'], function(){
 	Route::get('/{slug}', 'ContractController@showContract')->name('show.contract');
 });
 
+Route::group(['prefix'=>'headquarter'], function(){
+
+	Route::get('/', 'HeadquarterController@all');
+	Route::get('/{id}', 'HeadquarterController@show')->name('show.headquarter');
+});
+
 Auth::routes();
 
 //Logged in users/seller cannot access or send requests these pages
@@ -78,6 +84,9 @@ Route::group(['prefix'=>'institution', 'middleware' => 'institution_auth'], func
 
 	Route::resource('contract', 'ContractController');
 	Route::get('contract/{id}/destroy', 'ContractController@destroy')->name('contract.destroy');
+
+	Route::resource('banner', 'BannerController');
+	Route::get('banner/{id}/destroy', 'BannerController@destroy')->name('banner.destroy');
 });
 
 //Password reset routes

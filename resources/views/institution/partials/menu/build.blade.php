@@ -25,7 +25,7 @@
 				<button type="button" data-toggle="modal" data-target="#addItemModal" class="float-right btn btn-sm btn-primary">Agregar item</button>
 			</div>
 			<hr>
-			@if($menu->name=='navbar')
+			@if($menu->name=='main')
 				<div class="alert alert-info" role="alert">
 					<h4 class="alert-heading">URL's predefinidas</h4>
 					<p>Estas url se definen para mostrar informacioón predeterminada</p>

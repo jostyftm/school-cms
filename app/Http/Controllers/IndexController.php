@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Page;
 use App\Menu;
+use App\Banner;
 
 class IndexController extends Controller
 {
@@ -14,10 +15,11 @@ class IndexController extends Controller
     public function index()
     {
     	$posts = Post::orderBy('id', 'ASC')->paginate(2);
-
+        $banner = Banner::all()->first();
         // dd();
     	return View('post.index')
-    		   ->with('posts', $posts); 
+    		   ->with('posts', $posts)
+               ->with('banner', $banner); 
     }
 
     public function showPost($slug)

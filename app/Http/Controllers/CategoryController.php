@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryStoreRequest;
 use Illuminate\Support\Str as Str;
 
 use App\Category;
@@ -40,7 +41,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
 
         $category = new Category($request->all());
@@ -83,7 +84,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryStoreRequest $request, $id)
     {
         $category = Category::findOrfail($id);
         $category->fill($request->all());
