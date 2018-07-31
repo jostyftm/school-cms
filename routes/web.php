@@ -34,6 +34,10 @@ Route::group(['prefix'=>'headquarter'], function(){
 
 Auth::routes();
 
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+//      \UniSharp\LaravelFilemanager\Lfm::routes();
+// });
+
 //Logged in users/seller cannot access or send requests these pages
 Route::group(['middleware' => 'institution_guest'], function() {
 	Route::get('institution_register', 'InstitutionAuth\RegisterController@showRegistrationForm');

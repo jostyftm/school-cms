@@ -37,9 +37,9 @@
                                     Iniciar sesión
                             </button>
 
-                            <a class="btn btn-link" href="{{ url('/institution_password/reset') }}">
+                            {{-- <a class="btn btn-link" href="{{ url('/institution_password/reset') }}">
                                 Olvide mi contraseña?
-                            </a>
+                            </a> --}}
                         </div>
                     </form>
                 </div>
