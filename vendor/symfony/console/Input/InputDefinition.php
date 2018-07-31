@@ -45,8 +45,6 @@ class InputDefinition
 
     /**
      * Sets the definition of the input.
-     *
-     * @param array $definition The definition array
      */
     public function setDefinition(array $definition)
     {
@@ -93,10 +91,6 @@ class InputDefinition
     }
 
     /**
-     * Adds an InputArgument object.
-     *
-     * @param InputArgument $argument An InputArgument object
-     *
      * @throws LogicException When incorrect argument is given
      */
     public function addArgument(InputArgument $argument)
@@ -230,10 +224,6 @@ class InputDefinition
     }
 
     /**
-     * Adds an InputOption object.
-     *
-     * @param InputOption $option An InputOption object
-     *
      * @throws LogicException When option given already exist
      */
     public function addOption(InputOption $option)
@@ -316,7 +306,7 @@ class InputDefinition
     /**
      * Gets an InputOption by shortcut.
      *
-     * @param string $shortcut the Shortcut name
+     * @param string $shortcut The Shortcut name
      *
      * @return InputOption An InputOption object
      */
@@ -392,21 +382,21 @@ class InputDefinition
             $elements[] = '[--]';
         }
 
+        $tail = '';
         foreach ($this->getArguments() as $argument) {
             $element = '<'.$argument->getName().'>';
-            if (!$argument->isRequired()) {
-                $element = '['.$element.']';
-            } elseif ($argument->isArray()) {
-                $element = $element.' ('.$element.')';
-            }
-
             if ($argument->isArray()) {
                 $element .= '...';
+            }
+
+            if (!$argument->isRequired()) {
+                $element = '['.$element;
+                $tail .= ']';
             }
 
             $elements[] = $element;
         }
 
-        return implode(' ', $elements);
+        return implode(' ', $elements).$tail;
     }
 }

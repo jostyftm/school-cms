@@ -27,8 +27,8 @@ If, for example, you want to ensure that only logged in users have the ability t
 
 ```php
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
-    Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\UploadController@upload');
+    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\controllers\UploadController@upload');
     // list all lfm routes here...
 });
 ```
@@ -39,12 +39,15 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
 ## v2.0 progress
 * [x] (done) Unit test
-* [ ] (done, need manual tests) Integrate with Laravel Storage
-* [ ] (in progress) Multiple selection
+* [x] (done) Integrate with Laravel Storage
+* [x] (done) Multiple selection
+* [ ] Configurable disk of storage
 * [ ] (in progress) Responsive design
 * [ ] (in progress) Config refactoring
-* [ ] JSON APIs
+* [x] (done) JSON APIs
 * [ ] Move to folder function
+* [ ] Applying MIME icon generator
+* [x] (done) Bootstrap 4 support
 
 
 ## Contributors & Credits

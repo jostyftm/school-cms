@@ -36,6 +36,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     private $traces = array();
 
     /**
+     * Constructor.
+     *
      * The available options are:
      *
      *   * debug:                 If true, the traces are added as a HTTP header to ease debugging
@@ -67,11 +69,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *                            the cache can serve a stale response when an error is encountered (default: 60).
      *                            This setting is overridden by the stale-if-error HTTP Cache-Control extension
      *                            (see RFC 5861).
-     *
-     * @param HttpKernelInterface $kernel    An HttpKernelInterface instance
-     * @param StoreInterface      $store     A Store instance
-     * @param SurrogateInterface  $surrogate A SurrogateInterface instance
-     * @param array               $options   An array of options
      */
     public function __construct(HttpKernelInterface $kernel, StoreInterface $store, SurrogateInterface $surrogate = null, array $options = array())
     {
@@ -168,7 +165,11 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         // FIXME: catch exceptions and implement a 500 error page here? -> in Varnish, there is a built-in error page mechanism
         if (HttpKernelInterface::MASTER_REQUEST === $type) {
             $this->traces = array();
-            $this->request = $request;
+            // Keep a clone of the original request for surrogates so they can access it.
+            // We must clone here to get a separate instance because the application will modify the request during
+            // the application flow (we know it always does because we do ourselves by setting REMOTE_ADDR to 127.0.0.1
+            // and adding the X-Forwarded-For header, see HttpCache::forward()).
+            $this->request = clone $request;
             if (null !== $this->surrogate) {
                 $this->surrogateCacheStrategy = $this->surrogate->createCacheStrategy();
             }
@@ -290,7 +291,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * it triggers "miss" processing.
      *
      * @param Request $request A Request instance
-     * @param bool    $catch   whether to process exceptions
+     * @param bool    $catch   Whether to process exceptions
      *
      * @return Response A Response instance
      *
@@ -399,7 +400,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * stores it in the cache if is cacheable.
      *
      * @param Request $request A Request instance
-     * @param bool    $catch   whether to process exceptions
+     * @param bool    $catch   Whether to process exceptions
      *
      * @return Response A Response instance
      */
@@ -503,9 +504,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Checks whether the cache entry is "fresh enough" to satisfy the Request.
      *
-     * @param Request  $request A Request instance
-     * @param Response $entry   A Response instance
-     *
      * @return bool true if the cache entry if fresh enough, false otherwise
      */
     protected function isFreshEnough(Request $request, Response $entry)
@@ -523,9 +521,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
     /**
      * Locks a Request during the call to the backend.
-     *
-     * @param Request  $request A Request instance
-     * @param Response $entry   A Response instance
      *
      * @return bool true if the cache entry can be returned even if it is staled, false otherwise
      */
@@ -572,9 +567,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Writes the Response to the cache.
      *
-     * @param Request  $request  A Request instance
-     * @param Response $response A Response instance
-     *
      * @throws \Exception
      */
     protected function store(Request $request, Response $response)
@@ -599,9 +591,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
     /**
      * Restores the Response body.
-     *
-     * @param Request  $request  A Request instance
-     * @param Response $response A Response instance
      */
     private function restoreResponseBody(Request $request, Response $response)
     {
@@ -643,8 +632,6 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * Checks if the Request includes authorization or other sensitive information
      * that should cause the Response to be considered private by default.
      *
-     * @param Request $request A Request instance
-     *
      * @return bool true if the Request is private, false otherwise
      */
     private function isPrivateRequest(Request $request)
@@ -666,23 +653,16 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
     /**
      * Records that an event took place.
-     *
-     * @param Request $request A Request instance
-     * @param string  $event   The event name
      */
-    private function record(Request $request, $event)
+    private function record(Request $request, string $event)
     {
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
 
     /**
      * Calculates the key we use in the "trace" array for a given request.
-     *
-     * @param Request $request
-     *
-     * @return string
      */
-    private function getTraceKey(Request $request)
+    private function getTraceKey(Request $request): string
     {
         $path = $request->getPathInfo();
         if ($qs = $request->getQueryString()) {
@@ -695,12 +675,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Checks whether the given (cached) response may be served as "stale" when a revalidation
      * is currently in progress.
-     *
-     * @param Response $entry
-     *
-     * @return bool true when the stale response may be served, false otherwise
      */
-    private function mayServeStaleWhileRevalidate(Response $entry)
+    private function mayServeStaleWhileRevalidate(Response $entry): bool
     {
         $timeout = $entry->headers->getCacheControlDirective('stale-while-revalidate');
 
@@ -713,19 +689,15 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
     /**
      * Waits for the store to release a locked entry.
-     *
-     * @param Request $request The request to wait for
-     *
-     * @return bool true if the lock was released before the internal timeout was hit; false if the wait timeout was exceeded
      */
-    private function waitForLock(Request $request)
+    private function waitForLock(Request $request): bool
     {
         $wait = 0;
-        while ($this->store->isLocked($request) && $wait < 5000000) {
+        while ($this->store->isLocked($request) && $wait < 100) {
             usleep(50000);
-            $wait += 50000;
+            ++$wait;
         }
 
-        return $wait < 5000000;
+        return $wait < 100;
     }
 }

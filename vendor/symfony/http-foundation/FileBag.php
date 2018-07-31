@@ -84,10 +84,13 @@ class FileBag extends ParameterBag
                 if (UPLOAD_ERR_NO_FILE == $file['error']) {
                     $file = null;
                 } else {
-                    $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['size'], $file['error']);
+                    $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error']);
                 }
             } else {
-                $file = array_filter(array_map(array($this, 'convertFileInformation'), $file));
+                $file = array_map(array($this, 'convertFileInformation'), $file);
+                if (array_keys($keys) === $keys) {
+                    $file = array_filter($file);
+                }
             }
         }
 
@@ -105,8 +108,6 @@ class FileBag extends ParameterBag
      *
      * It's safe to pass an already converted array, in which case this method
      * just returns the original array unmodified.
-     *
-     * @param array $data
      *
      * @return array
      */

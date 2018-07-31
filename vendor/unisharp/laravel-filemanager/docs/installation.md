@@ -10,7 +10,7 @@
 1. Install package 
 
     ```bash
-    composer require unisharp/laravel-filemanager
+    composer require unisharp/laravel-filemanager:~1.8
     ```
 
 1. Edit `config/app.php` :
@@ -20,7 +20,7 @@
     Add service providers
 
     ```php
-    Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+    UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
     Intervention\Image\ImageServiceProvider::class,
     ```
 

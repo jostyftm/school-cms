@@ -1,12 +1,13 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager\controllers;
+namespace UniSharp\LaravelFilemanager\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
-use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
+use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
+use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 
 /**
  * Class UploadController.
@@ -38,13 +39,13 @@ class UploadController extends LfmController
                 return $this->errors;
             }
 
-            if (!$this->proceedSingleUpload($file)) {
+            $filename = $this->proceedSingleUpload($file);
+            if ($filename === false) {
                 return $this->errors;
             }
 
             // upload via ckeditor 'Upload' tab
-            $new_filename = $this->getNewName($file);
-            return $this->useFile($new_filename);
+            return $this->useFile($filename);
         }
 
 
@@ -66,33 +67,39 @@ class UploadController extends LfmController
 
         event(new ImageIsUploading($new_file_path));
         try {
-            if (parent::fileIsImage($file)) {
-                // File is an image
-                // Process & compress the image
+            if (parent::fileIsImage($file) && !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml'])) {
+                // Handle image rotation
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
-                    ->save($new_file_path, 90);
+                    ->save($new_file_path);
 
                 // Generate a thumbnail
                 if (parent::imageShouldHaveThumb($file)) {
                     $this->makeThumb($new_filename);
                 }
             } else {
-                // File is not an image
                 // Create (move) the file
                 File::move($file->getRealPath(), $new_file_path);
             }
-            chmod($new_file_path, config('lfm.create_file_mode', 0644));
+            if (config('lfm.should_change_file_mode', true)) {
+                chmod($new_file_path, config('lfm.create_file_mode', 0644));
+            }
         } catch (\Exception $e) {
             array_push($this->errors, parent::error('invalid'));
-            // FIXME: Exception must be logged.
+
+            Log::error($e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
             return false;
         }
 
         // TODO should be "FileWasUploaded"
         event(new ImageWasUploaded(realpath($new_file_path)));
 
-        return true;
+        return $new_filename;
     }
 
     private function fileIsValid($file)
@@ -183,6 +190,15 @@ class UploadController extends LfmController
     private function useFile($new_filename)
     {
         $file = parent::getFileUrl($new_filename);
+
+        $responseType = request()->input('responseType');
+        if ($responseType && $responseType == 'json') {
+            return [
+                "uploaded" => 1,
+                "fileName" => $new_filename,
+                "url" => $file,
+            ];
+        }
 
         return "<script type='text/javascript'>
 
